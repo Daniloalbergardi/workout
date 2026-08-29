@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#101828">
+<title>Treino 3× por semana</title>
+<style>
+:root{--bg:#f2f4f7;--card:#fff;--text:#101828;--muted:#667085;--line:#d0d5dd;--blue:#2563eb;--navy:#101828;--green:#067647;--red:#b42318;--amber:#b54708;--r:17px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;padding-bottom:86px}
+button,input{font:inherit}.top{position:sticky;top:0;z-index:20;background:rgba(16,24,40,.97);color:white;padding:14px 15px;box-shadow:0 5px 20px #10182833}.topin{max-width:920px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:10px}.top h1{font-size:1rem;margin:0}.top p{font-size:.75rem;color:#d0d5dd;margin:2px 0 0}.iconbtn{border:1px solid #ffffff33;background:#ffffff14;color:#fff;border-radius:11px;padding:9px 11px;font-weight:800}
+main{max-width:920px;margin:auto;padding:14px}.notice{background:#eff8ff;border:1px solid #b2ddff;padding:13px;border-radius:var(--r);font-size:.82rem;color:#344054;margin-bottom:12px}.notice b{color:#175cd3}
+.tabs{position:fixed;z-index:19;bottom:0;left:0;right:0;display:grid;grid-template-columns:repeat(3,1fr);gap:7px;background:#ffffffed;border-top:1px solid var(--line);padding:8px 10px calc(8px + env(safe-area-inset-bottom));backdrop-filter:blur(10px)}.tabs button{border:0;border-radius:12px;padding:11px 5px;background:#eaecf0;color:#344054;font-weight:850}.tabs button.on{background:var(--navy);color:white}
+.workout{background:var(--card);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;margin:11px 0;box-shadow:0 7px 22px #1018280d}.workout-head{width:100%;border:0;background:white;text-align:left;padding:15px;display:flex;align-items:center;gap:11px}.badge{width:44px;height:44px;display:grid;place-items:center;border-radius:13px;background:#dbeafe;color:#1d4ed8;font-weight:900}.wh-title{font-weight:900}.wh-sub{font-size:.76rem;color:var(--muted);display:block}.arrow{margin-left:auto;font-size:1.25rem}.workout .body{display:none;padding:0 11px 12px}.workout.open .body{display:block}.workout.open .arrow{transform:rotate(180deg)}
+.exercise{border:1px solid var(--line);border-radius:15px;padding:12px;margin-top:9px}.exhead{display:flex;gap:9px}.num{width:29px;height:29px;flex:0 0 auto;display:grid;place-items:center;border-radius:9px;background:var(--navy);color:white;font-size:.78rem;font-weight:900}.exercise h3{font-size:.94rem;margin:0 0 2px}.sets{color:var(--blue);font-size:.79rem;font-weight:850}.cue{color:var(--muted);font-size:.78rem;margin:8px 0}.alts{background:#f2f4f7;border-radius:10px;padding:8px;font-size:.74rem;color:#475467}.alts div+div{margin-top:4px}.actions{display:grid;grid-template-columns:1fr 1.2fr;gap:7px;margin-top:9px}.actions button{border:0;border-radius:11px;padding:10px 7px;font-size:.76rem;font-weight:850}.machine{background:#e4e7ec;color:#344054}.execution{background:var(--blue);color:white}
+.modal{display:none;position:fixed;inset:0;z-index:100;background:#101828b8;padding:12px;align-items:flex-end;justify-content:center}.modal.open{display:flex}.sheet{width:min(100%,780px);max-height:92vh;overflow:auto;background:white;border-radius:22px 22px 14px 14px}.mhead{position:sticky;top:0;z-index:2;background:white;border-bottom:1px solid var(--line);padding:13px 14px;display:flex;align-items:center;justify-content:space-between}.mhead h2{font-size:.98rem;margin:0}.close{border:0;width:38px;height:38px;border-radius:11px;background:#eaecf0;font-size:1.25rem}.mbody{padding:14px}.status{display:flex;gap:8px;align-items:center;background:#f9fafb;border:1px solid var(--line);border-radius:12px;padding:10px;font-size:.77rem;margin-bottom:11px}.dot{width:9px;height:9px;border-radius:99px;background:var(--amber)}.dot.ok{background:var(--green)}.dot.err{background:var(--red)}
+.gallery{display:grid;gap:11px}.pic{background:#f2f4f7;border:1px solid var(--line);border-radius:15px;overflow:hidden;min-height:180px;display:grid;place-items:center;position:relative}.pic img{display:block;width:100%;height:auto;max-height:420px;object-fit:contain;background:white}.label{position:absolute;left:8px;bottom:8px;background:#101828dc;color:white;border-radius:8px;padding:5px 8px;font-size:.68rem;font-weight:800}.noimg{padding:28px 18px;text-align:center;color:var(--muted);font-size:.8rem}.meta{margin-top:11px;background:#ecfdf3;border-left:4px solid var(--green);border-radius:10px;padding:10px 11px;font-size:.77rem;color:#344054}.source{margin-top:9px;font-size:.69rem;color:var(--muted);word-break:break-word}
+.settings label{display:block;font-size:.76rem;font-weight:800;margin:12px 0 5px}.settings input{width:100%;border:1px solid var(--line);border-radius:10px;padding:10px}.save{width:100%;margin-top:14px;border:0;border-radius:11px;padding:11px;background:var(--blue);color:white;font-weight:850}.small{font-size:.72rem;color:var(--muted)}
+.spinner{width:28px;height:28px;border:3px solid #d0d5dd;border-top-color:var(--blue);border-radius:50%;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
+@media(min-width:720px){body{padding-bottom:25px}.tabs{position:sticky;top:73px;max-width:920px;margin:0 auto 10px;border:1px solid var(--line);border-radius:15px;padding:7px}.workout .body{display:grid!important;grid-template-columns:1fr 1fr;gap:9px}.exercise{margin-top:0}.arrow{display:none}.modal{align-items:center}.sheet{border-radius:22px}.gallery{grid-template-columns:repeat(3,1fr)}}
+</style>
+</head>
+<body>
+<header class="top"><div class="topin"><div><h1>Treino conjunto · 3 dias</h1><p>Imagens consultadas em bases públicas</p></div><button class="iconbtn" id="settingsBtn">⚙ API</button></div></header>
+<nav class="tabs"><button class="on" data-to="wa">Treino A</button><button data-to="wb">Treino B</button><button data-to="wc">Treino C</button></nav>
+<main>
+<div class="notice"><b>Como funciona:</b> ao abrir uma imagem, o sistema procura por nomes equivalentes e sinônimos. Ordem: Free Exercise DB → wger → ExerciseDB opcional. O resultado fica em cache no navegador.</div>
+<section class="workout open" id="wa"><button class="workout-head"><span class="badge">A</span><span><span class="wh-title">Costas, peito e core</span><span class="wh-sub">Postura e estabilidade do tronco</span></span><span class="arrow">⌄</span></button><div class="body" data-day="A"></div></section>
+<section class="workout" id="wb"><button class="workout-head"><span class="badge">B</span><span><span class="wh-title">Pernas e sustentação</span><span class="wh-sub">Quadril, joelhos, pés e trabalho em pé</span></span><span class="arrow">⌄</span></button><div class="body" data-day="B"></div></section>
+<section class="workout" id="wc"><button class="workout-head"><span class="badge">C</span><span><span class="wh-title">Corpo inteiro</span><span class="wh-sub">Reforço geral com baixa fadiga</span></span><span class="arrow">⌄</span></button><div class="body" data-day="C"></div></section>
+</main>
+<div class="modal" id="modal"><div class="sheet"><div class="mhead"><h2 id="mtitle"></h2><button class="close" id="mclose">×</button></div><div class="mbody" id="mbody"></div></div></div>
+
+<script>
+/* =========================
+   CONFIGURAÇÃO DOS TREINOS
+   aliases: termos usados na busca, do mais específico ao mais amplo.
+   ========================= */
+const DAYS={
+A:[
+{name:"Puxada frontal",sets:"3 × 10–12",cue:"Peito aberto, ombros baixos e barra em direção à parte superior do peito.",alt1:"Puxada neutra",alt2:"Remada curvada com halteres",aliases:["wide grip lat pulldown","lat pulldown","cable pulldown","front pulldown","pulldown"]},
+{name:"Chest press",sets:"3 × 10–12",cue:"Costas apoiadas, punhos alinhados e cotovelos em posição confortável.",alt1:"Peck deck",alt2:"Supino com halteres",aliases:["machine chest press","chest press","seated chest press","lever chest press"]},
+{name:"Remada baixa",sets:"3 × 10–12",cue:"Puxe pelos cotovelos e aproxime as escápulas sem balançar o tronco.",alt1:"Remada articulada",alt2:"Remada unilateral no banco",aliases:["seated cable row","seated row","machine row","low cable row","cable row"]},
+{name:"Abdominal na máquina",sets:"2–3 × 12–15",cue:"Flexione o tronco devagar, sem puxar com os braços.",alt1:"Abdominal na polia",alt2:"Prancha",aliases:["machine crunch","seated machine crunch","ab crunch machine","abdominal crunch"]},
+{name:"Extensão lombar na máquina",sets:"2 × 12",cue:"Amplitude curta; não hiperestenda a coluna.",alt1:"Banco romano",alt2:"Bird dog",aliases:["machine back extension","back extension","hyperextension","lower back extension"]}
+],
+B:[
+{name:"Leg press",sets:"3 × 12",cue:"Lombar apoiada e joelhos acompanhando a direção dos pés.",alt1:"Hack machine",alt2:"Agachamento goblet",aliases:["sled leg press","leg press","lever leg press","45 degree leg press"]},
+{name:"Mesa flexora",sets:"3 × 12",cue:"Quadril apoiado e retorno controlado.",alt1:"Cadeira flexora",alt2:"Stiff com halteres",aliases:["lying leg curl","prone leg curl","lever lying leg curl","leg curl"]},
+{name:"Cadeira abdutora",sets:"2–3 × 15",cue:"Abra os joelhos sem retirar o quadril do assento.",alt1:"Abdução na polia",alt2:"Agachamento sumô",aliases:["seated hip abduction","hip abduction machine","lever seated hip abduction","abductor machine"]},
+{name:"Cadeira adutora",sets:"2–3 × 15",cue:"Feche as pernas com controle e sem impulso.",alt1:"Adução na polia",alt2:"Apertar anilha entre os joelhos",aliases:["seated hip adduction","hip adduction machine","lever seated hip adduction","adductor machine"]},
+{name:"Panturrilha na máquina",sets:"3 × 15",cue:"Suba, pause e desça lentamente.",alt1:"Panturrilha no leg press",alt2:"Panturrilha em pé com halteres",aliases:["standing calf raise machine","lever standing calf raise","calf raise machine","standing calf raise"]}
+],
+C:[
+{name:"Leg press leve",sets:"3 × 12",cue:"Carga menor que no treino B e movimento confortável.",alt1:"Agachamento no Smith",alt2:"Agachamento goblet",aliases:["sled leg press","leg press","lever leg press"]},
+{name:"Puxada neutra",sets:"3 × 10–12",cue:"Pegada neutra, peito aberto e pescoço alinhado.",alt1:"Remada articulada",alt2:"Pullover com halter",aliases:["neutral grip lat pulldown","close grip pulldown","v bar pulldown","lat pulldown"]},
+{name:"Chest press inclinado",sets:"3 × 10–12",cue:"Não arqueie excessivamente a lombar.",alt1:"Supino inclinado na máquina",alt2:"Flexão inclinada no banco",aliases:["incline chest press machine","lever incline chest press","incline chest press","incline bench press"]},
+{name:"Desenvolvimento na máquina",sets:"2 × 10–12",cue:"Costas apoiadas e ombros longe das orelhas.",alt1:"Shoulder press articulado",alt2:"Desenvolvimento com halteres",aliases:["machine shoulder press","lever shoulder press","seated shoulder press","shoulder press"]},
+{name:"Cadeira flexora",sets:"3 × 12",cue:"Joelhos alinhados ao eixo do aparelho.",alt1:"Mesa flexora",alt2:"Ponte de glúteo",aliases:["seated leg curl","lever seated leg curl","leg curl"]}
+]};
+
+/* =========================
+   PROVEDORES
+   1) Free Exercise DB: sem token
+   2) wger: sem token para leitura pública
+   3) ExerciseDB/RapidAPI: opcional
+   ========================= */
+const API={
+ free:{
+  json:"https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/dist/exercises.json",
+  imageBase:"https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/"
+ },
+ wger:{
+  list:"https://wger.de/api/v2/exerciseinfo/?language=2&limit=500"
+ },
+ rapid:{
+  base:"https://exercisedb.p.rapidapi.com",
+  host:"exercisedb.p.rapidapi.com"
+ }
+};
+
+let freeCache=null,wgerCache=null;
+const resultCache=new Map();
+
+const norm=s=>(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/[^a-z0-9 ]/g," ").replace(/\s+/g," ").trim();
+const tokens=s=>new Set(norm(s).split(" ").filter(x=>x.length>1));
+function tokenScore(a,b){
+ const A=tokens(a),B=tokens(b); if(!A.size||!B.size)return 0;
+ let inter=0; A.forEach(x=>{if(B.has(x))inter++});
+ return (2*inter)/(A.size+B.size);
+}
+function levenshtein(a,b){
+ a=norm(a);b=norm(b);const m=Array.from({length:b.length+1},(_,i)=>i);
+ for(let i=1;i<=a.length;i++){let prev=m[0];m[0]=i;for(let j=1;j<=b.length;j++){const t=m[j];m[j]=Math.min(m[j]+1,m[j-1]+1,prev+(a[i-1]===b[j-1]?0:1));prev=t}}
+ return m[b.length];
+}
+function similarity(a,b){const mx=Math.max(norm(a).length,norm(b).length)||1;return Math.max(tokenScore(a,b),1-levenshtein(a,b)/mx)}
+function bestMatch(items,aliases,getName){
+ let best=null,score=0,alias="";
+ for(const item of items){const n=getName(item);for(const a of aliases){let s=similarity(n,a);if(norm(n)===norm(a))s=1;if(s>score){best=item;score=s;alias=a}}}
+ return {item:best,score,alias};
+}
+function unique(arr){return [...new Set(arr.filter(Boolean))]}
+
+async function fetchJSON(url,opts={},timeout=12000){
+ const ctrl=new AbortController();const id=setTimeout(()=>ctrl.abort(),timeout);
+ try{const r=await fetch(url,{...opts,signal:ctrl.signal});if(!r.ok)throw new Error("HTTP "+r.status);return await r.json()}finally{clearTimeout(id)}
+}
+async function fromFree(ex){
+ if(!freeCache)freeCache=await fetchJSON(API.free.json);
+ const match=bestMatch(freeCache,ex.aliases,x=>x.name);
+ if(!match.item||match.score<.52)throw new Error("Sem correspondência confiável");
+ const x=match.item;
+ const images=(x.images||[]).map(p=>API.free.imageBase+p);
+ return {provider:"Free Exercise DB",match:x.name,score:match.score,images,instructions:x.instructions||[],muscles:[...(x.primaryMuscles||[]),...(x.secondaryMuscles||[])],equipment:x.equipment||"",raw:x};
+}
+function wgerName(x){
+ const ts=x.translations||[];
+ return (ts.find(t=>t.language===2)||ts.find(t=>t.language===1)||ts[0]||{}).name||x.name||"";
+}
+async function fromWger(ex){
+ if(!wgerCache){
+  const d=await fetchJSON(API.wger.list);
+  wgerCache=d.results||d;
+ }
+ const match=bestMatch(wgerCache,ex.aliases,wgerName);
+ if(!match.item||match.score<.46)throw new Error("Sem correspondência confiável");
+ const x=match.item, trans=(x.translations||[]).find(t=>t.language===2)||(x.translations||[])[0]||{};
+ const images=unique((x.images||[]).map(i=>i.image||i.image_url||i.url));
+ return {provider:"wger",match:wgerName(x),score:match.score,images,instructions:trans.description?[trans.description.replace(/<[^>]*>/g," ")]:[],muscles:(x.muscles||[]).map(m=>m.name_en||m.name),equipment:(x.equipment||[]).map(e=>e.name).join(", "),raw:x};
+}
+async function fromRapid(ex){
+ const key=localStorage.getItem("rapidKey")||"";
+ if(!key)throw new Error("Token não configurado");
+ const q=encodeURIComponent(ex.aliases[0]);
+ const data=await fetchJSON(`${API.rapid.base}/exercises/name/${q}?offset=0&limit=10`,{headers:{"X-RapidAPI-Key":key,"X-RapidAPI-Host":API.rapid.host}});
+ const arr=Array.isArray(data)?data:(data.results||[]);
+ if(!arr.length)throw new Error("Nenhum resultado");
+ const match=bestMatch(arr,ex.aliases,x=>x.name);
+ const x=match.item;
+ const imgs=unique([x.gifUrl,x.image,x.imageUrl,...(x.images||[])]);
+ return {provider:"ExerciseDB/RapidAPI",match:x.name,score:match.score,images:imgs,instructions:x.instructions||[],muscles:unique([x.target,...(x.secondaryMuscles||[])]),equipment:x.equipment||"",raw:x};
+}
+async function resolveExercise(ex){
+ const key=ex.name;
+ if(resultCache.has(key))return resultCache.get(key);
+ const stored=sessionStorage.getItem("exercise:"+key);
+ if(stored){try{const p=JSON.parse(stored);resultCache.set(key,p);return p}catch{}}
+ const errors=[];
+ for(const provider of [fromFree,fromWger,fromRapid]){
+  try{
+   const r=await provider(ex);
+   if(r.images?.length){resultCache.set(key,r);sessionStorage.setItem("exercise:"+key,JSON.stringify(r));return r}
+   errors.push(r.provider+": resultado sem imagem");
+  }catch(e){errors.push(e.message)}
+ }
+ throw new Error(errors.join(" · "));
+}
+
+function card(ex,i){
+ const encoded=encodeURIComponent(JSON.stringify(ex));
+ return `<article class="exercise"><div class="exhead"><span class="num">${i+1}</span><div><h3>${ex.name}</h3><span class="sets">${ex.sets}</span></div></div><p class="cue">${ex.cue}</p><div class="alts"><div><b>Alternativa máquina:</b> ${ex.alt1}</div><div><b>Alternativa livre:</b> ${ex.alt2}</div></div><div class="actions"><button class="machine" data-kind="machine" data-ex="${encoded}">Ver máquina</button><button class="execution" data-kind="execution" data-ex="${encoded}">Ver execução</button></div></article>`
+}
+document.querySelectorAll("[data-day]").forEach(el=>el.innerHTML=DAYS[el.dataset.day].map(card).join(""));
+
+const modal=document.getElementById("modal"),mbody=document.getElementById("mbody"),mtitle=document.getElementById("mtitle");
+function openModal(title,body){mtitle.textContent=title;mbody.innerHTML=body;modal.classList.add("open");document.body.style.overflow="hidden"}
+function closeModal(){modal.classList.remove("open");document.body.style.overflow=""}
+document.getElementById("mclose").onclick=closeModal;modal.onclick=e=>{if(e.target===modal)closeModal()};addEventListener("keydown",e=>{if(e.key==="Escape")closeModal()});
+
+function safe(s){const d=document.createElement("div");d.textContent=s||"";return d.innerHTML}
+function gallery(result,kind,ex){
+ let imgs=result.images.slice(0,3);
+ const labels=kind==="machine"?["Máquina/equipamento","Posição no aparelho","Referência adicional"]:["Posição inicial","Posição final","Referência adicional"];
+ const blocks=imgs.map((url,i)=>`<div class="pic"><img src="${safe(url)}" alt="${safe(labels[i])} — ${safe(ex.name)}" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.innerHTML='<div class=noimg>Esta imagem não pôde ser carregada pelo provedor.</div>'"><span class="label">${labels[i]}</span></div>`).join("");
+ const missing=Array.from({length:Math.max(0,3-imgs.length)},(_,i)=>`<div class="pic"><div class="noimg">A base retornou somente ${imgs.length} imagem(ns) para este exercício.<br>Não será usada uma imagem inventada ou de outro movimento.</div></div>`).join("");
+ const muscles=result.muscles?.length?`<b>Músculos cadastrados:</b> ${safe(result.muscles.join(", "))}<br>`:"";
+ const equip=result.equipment?`<b>Equipamento:</b> ${safe(Array.isArray(result.equipment)?result.equipment.join(", "):result.equipment)}<br>`:"";
+ return `<div class="status"><span class="dot ok"></span><span>Encontrado em <b>${safe(result.provider)}</b> como “${safe(result.match)}” · compatibilidade ${Math.round(result.score*100)}%</span></div><div class="gallery">${blocks}${missing}</div><div class="meta">${muscles}${equip}<b>Dica deste treino:</b> ${safe(ex.cue)}</div><div class="source">Fonte dos dados/imagens: ${safe(result.provider)}. A disponibilidade e a licença continuam sujeitas aos termos do provedor.</div>`;
+}
+
+document.addEventListener("click",async e=>{
+ const b=e.target.closest("[data-ex]");if(!b)return;
+ const ex=JSON.parse(decodeURIComponent(b.dataset.ex)),kind=b.dataset.kind;
+ openModal(`${kind==="machine"?"Máquina":"Execução"} · ${ex.name}`,`<div class="status"><span class="spinner"></span><span>Consultando Free Exercise DB, wger e fallback opcional…</span></div>`);
+ try{const r=await resolveExercise(ex);mbody.innerHTML=gallery(r,kind,ex)}
+ catch(err){mbody.innerHTML=`<div class="status"><span class="dot err"></span><span>Não foi possível encontrar uma imagem confiável.</span></div><div class="noimg">${safe(err.message)}</div><div class="meta">Tente configurar a chave opcional da RapidAPI ou alterar os sinônimos no código do exercício.</div>`}
+});
+
+document.querySelectorAll(".workout-head").forEach(b=>b.onclick=()=>{if(innerWidth<720)b.parentElement.classList.toggle("open")});
+document.querySelectorAll(".tabs button").forEach(b=>b.onclick=()=>{document.querySelectorAll(".tabs button").forEach(x=>x.classList.remove("on"));b.classList.add("on");const el=document.getElementById(b.dataset.to);el.classList.add("open");el.scrollIntoView({behavior:"smooth",block:"start"})});
+
+document.getElementById("settingsBtn").onclick=()=>{
+ const current=localStorage.getItem("rapidKey")||"";
+ openModal("Configuração de API",`<div class="settings"><p class="small"><b>Free Exercise DB e wger não exigem token.</b> A chave abaixo é apenas para o terceiro fallback, ExerciseDB via RapidAPI. Em um HTML local a chave fica no seu navegador, mas ainda pode ser vista nas ferramentas de desenvolvimento; não publique o arquivo com uma chave embutida.</p><label for="rapidKey">X-RapidAPI-Key</label><input id="rapidKey" type="password" value="${safe(current)}" placeholder="Cole sua chave da RapidAPI"><button class="save" id="saveKey">Salvar neste navegador</button><button class="save" id="clearCache" style="background:#475467">Limpar cache das buscas</button></div>`);
+ document.getElementById("saveKey").onclick=()=>{localStorage.setItem("rapidKey",document.getElementById("rapidKey").value.trim());alert("Chave salva somente neste navegador.")};
+ document.getElementById("clearCache").onclick=()=>{Object.keys(sessionStorage).filter(k=>k.startsWith("exercise:")).forEach(k=>sessionStorage.removeItem(k));resultCache.clear();alert("Cache limpo.")};
+};
+</script>
+</body>
+</html>
